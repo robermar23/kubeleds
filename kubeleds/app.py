@@ -16,3 +16,7 @@ cli.add_command(init)
 cli.add_command(show)
 cli.add_command(get_cluster_nodes)
 cli.add_command(set_leds)
+
+
+if __name__ == '__main__':
+    cli()

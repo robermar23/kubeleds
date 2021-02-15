@@ -42,6 +42,7 @@ def get_cluster_nodes(ctx, api_host, api_token, data_key):
         #console.print(node.metadata.name)
         node_status = NodeStatus(node)
         #json_status = json.dumps(node_status.__dict__)
+        #node_statuses[node_status.get_name()] = node_status
         node_statuses.append(node_status)
 
     ctx.obj[data_key] = node_statuses
@@ -52,6 +53,10 @@ class NodeStatus:
     def __init__(self, node_info):
         self.set_name(node_info.metadata.name)
         self.set_status_conditions(node_info)
+
+    def __getitem__(self, item):
+        console.print(item)
+        return getattr(self, item)
 
     def get_name(self):
         return self._name

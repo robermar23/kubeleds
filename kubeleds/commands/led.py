@@ -20,23 +20,20 @@ def set_leds(ctx, data_key):
 
     """
     
-    console.print("data_key: " + data_key)
+    #console.print("data_key: " + data_key)
 
     data = ctx.obj[data_key]
     n_leds = len(utils.Leds)
     idx = 0
 
-    console.print(data)
-    
-    for item in enumerate(data):
+    for item in data:
         console.print(item)
-        #for idx in range(n_leds):
         if idx >= 0 and idx < n_leds:
-            if item.get_status_conditions["Ready"]:
+            if item.get_status_conditions()["Ready"]:
                 utils.Leds[idx] = COLOR_GOOD
             else:
                 utils.Leds[idx] = COLOR_BAD
-
+        
         idx+= 1
 
     while idx < n_leds:
