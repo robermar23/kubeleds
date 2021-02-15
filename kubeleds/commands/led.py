@@ -10,8 +10,8 @@ import adafruit_ws2801
 
 @click.command("set_leds", short_help="Set led colors")
 @click.pass_context
-@click.argument("contextKey", required=True)
-def set_leds(ctx, contextKey):
+@click.argument("data_key", required=True)
+def set_leds(ctx, data_key):
     """ This command will let you set the color of each led
 
     Examples:
@@ -20,14 +20,16 @@ def set_leds(ctx, contextKey):
 
     """
     
-    console.print("Context Key: " + contextKey)
+    console.print("data_key: " + data_key)
 
-    data = ctx[contextKey]
+    data = ctx.obj[data_key]
     n_leds = len(utils.Leds)
     idx = 0
 
-
+    console.print(data)
+    
     for item in enumerate(data):
+        console.print(item)
         #for idx in range(n_leds):
         if idx >= 0 and idx < n_leds:
             if item.get_status_conditions["Ready"]:

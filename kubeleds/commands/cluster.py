@@ -10,9 +10,9 @@ _v1=CoreV1Api
 @click.pass_context
 @click.argument("api_host", required=True, type=click.STRING)
 @click.argument("api_token", required=True, type=click.STRING)
-@click.argument("verify_ssl", required=False, default=True, type=click.BOOL)
-@click.argument("contextKey", required=False, default="get_cluster_nodes", type=click.STRING)
-def get_cluster_nodes(ctx, api_host, api_token, verify_ssl, contextKey):
+#@click.argument("verify_ssl", required=False, default=True, type=click.BOOL)
+@click.argument("data_key", required=False, default="get_cluster_nodes", type=click.STRING)
+def get_cluster_nodes(ctx, api_host, api_token, data_key):
     """This command will let you login in to a get the status of various resource types in a given cluster
 
     Examples:
@@ -22,12 +22,12 @@ def get_cluster_nodes(ctx, api_host, api_token, verify_ssl, contextKey):
     """
     console.print("api_host:" + api_host)
     console.print("api_token:" + api_token)
-    console.print("verify_ssl:" + str(verify_ssl))
+    #console.print("verify_ssl:" + str(verify_ssl))
 
     aToken = api_token
     aConfiguration= client.Configuration()
     aConfiguration.host = api_host
-    aConfiguration.verify_ssl = verify_ssl
+    aConfiguration.verify_ssl = True
     aConfiguration.api_key = {"authorization": "Bearer " + aToken}
 
     aApiClient = client.ApiClient(aConfiguration)
@@ -44,7 +44,7 @@ def get_cluster_nodes(ctx, api_host, api_token, verify_ssl, contextKey):
         #json_status = json.dumps(node_status.__dict__)
         node_statuses.append(node_status)
 
-    ctx[contextKey] = node_statuses
+    ctx.obj[data_key] = node_statuses
 
     return node_statuses
 

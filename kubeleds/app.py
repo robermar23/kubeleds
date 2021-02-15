@@ -6,7 +6,7 @@ import click
 from kubeleds.commands import get_cluster_nodes, set_leds,  init, show
 
 
-@click.group()
+@click.group(chain=True)
 @click.pass_context
 def cli(ctx):
     ctx.ensure_object(dict)
