@@ -5,14 +5,15 @@ from kubeleds import console
 from kubernetes import client
 from kubernetes.client.rest import ApiException
 
-@click.command("get_cluster_nodes", short_help="Login to a cluster and get node data")
+@click.command("get_namespaced_pods", short_help="Login to a cluster and get pod data for a given namespace")
 @click.pass_context
 @click.argument("api_host", required=True, type=click.STRING)
 @click.argument("api_token", required=True, type=click.STRING)
+@click.argument("namespace", required=True, type=click.STRING)
 @click.argument("verify_ssl", required=False, default=True, type=click.BOOL)
-@click.argument("data_key", required=False, default="get_cluster_nodes", type=click.STRING)
-def get_cluster_nodes(ctx, api_host, api_token, verify_ssl, data_key):
-    """This command will let you login in to a get the status of various resource types in a given cluster
+@click.argument("data_key", required=False, default="get_namespaced_pods", type=click.STRING)
+def get_namespaced_pods(ctx, api_host, api_token, namespace, verify_ssl, data_key):
+    """This command will let you login in to a get the status of pods in the passed namespace
 
     Examples:
 
@@ -21,47 +22,49 @@ def get_cluster_nodes(ctx, api_host, api_token, verify_ssl, data_key):
     """
     console.print("api_host:" + api_host)
     console.print("api_token:" + api_token)
+    console.print("namespace:" + namespace)
     #console.print("verify_ssl:" + str(verify_ssl))
 
     aToken = api_token
     aConfiguration= client.Configuration()
-    aConfiguration.host = api_host
     aConfiguration.debug = True
+    aConfiguration.host = api_host
     aConfiguration.verify_ssl = verify_ssl
     aConfiguration.api_key = {"authorization": "Bearer " + aToken}
 
     with client.ApiClient(aConfiguration) as aApiClient:
         v1 = client.CoreV1Api(aApiClient)
 
-        node_statuses = []
+        pod_statuses = []
 
         try:
             
-            response = v1.list_node(_preload_content=False, watch=False)
-            nodes = json.loads(response.data)
+            response = v1.list_namespaced_pod(namespace=namespace, _preload_content=False, watch=False)
+            #response = v1.list_namespaced_pod(namespace=namespace, _preload_content=False, watch=False)
+            pods = json.loads(response.data)
 
-            with open('nodes.json', 'w') as outfile:
-                json.dump(nodes["items"], outfile)
+            with open('pods.json', 'w') as outfile:
+                json.dump(pods["items"], outfile)
 
-            console.print("Node Count: " + str(len(nodes["items"])))
+            console.print("Pods Count: " + str(len(pods["items"])))
             
-            for node in nodes["items"]:
+            for pod in pods["items"]:
                 #console.print(node.metadata.name)
-                node_status = NodeStatus(node)
+                pod_status = PodStatus(pod)
                 #json_status = json.dumps(node_status.__dict__)
                 #node_statuses[node_status.get_name()] = node_status
-                node_statuses.append(node_status)
+                pod_statuses.append(pod_status)
 
-            ctx.obj[data_key] = node_statuses
+            ctx.obj[data_key] = pod_statuses
         except ApiException as e:
-            console.print("Kubernetes error: %s\n" % e, err=True)
+            console.print("Kubernetes error: %s\n" % e)
 
-        return node_statuses
+        return pod_statuses
 
-class NodeStatus:
-    def __init__(self, node_info):
-        self.set_name(node_info["metadata"]["name"])
-        self.set_status_conditions(node_info)
+class PodStatus:
+    def __init__(self, pod_info):
+        self.set_name(pod_info["metadata"]["name"])
+        self.set_status_conditions(pod_info)
 
     def __getitem__(self, item):
         console.print(item)
@@ -76,9 +79,9 @@ class NodeStatus:
     def set_name(self, value):
         self._name = value
 
-    def set_status_conditions(self, node):
+    def set_status_conditions(self, pod):
         self._status_conditions = {}
-        for cond in node["status"]["conditions"]:
+        for cond in pod["status"]["conditions"]:
             #console.print(cond)
             cond_result = False
             if cond["type"] == "Ready":
