@@ -7,11 +7,11 @@ Currently using a Raspberry PI 4b 2GB.  Preparing a Raspberry PI Zero W
 
 NeoPixel LED Strips, 12mm Diffussed bulbs
 
-![alt text](https://www.dropbox.com/s/nmrmp8nqpghqjc6/2021-02-16%2009.07.11.jpg?dl=0)
+![alt text](https://previews.dropbox.com/p/thumb/ABEwWReBdyjrxF2X2JoEYMSBMG-gJaBrt6Bks05-n7kAk8k1eDf1KfPaatUn3hd9k0QGfl5mnajx4jsxgdASvNG9FckFYh3a9GF3Okprb9zaCHECOdA0qucx2eXYLYOVZz_Ed3zBuTbU54TspzkNF2WPSFOgqJWyWHRAcCchdw0zEbFS54YHItUWRC4X445-fmS7S6TGnXhdAoutqo649s5o0g5kmmozZMxDBpmwn_ipEXgEIiweepiGm_yXdL4RZ7BRGcPzNfjuzkBwb6mup0BiIey2DnXAPv2v8tIEo6sty0x4MRJn4S3isLNU6KEJkF6gon0RlTmNGGM_TpheWzhza54zy6-JZZcYmzOMSfiOJh6lngsqcL9OTW7MRucOqruEeTFi8nu8DDEXwpk9o_wHB16aMyfbNvwWBaJXivOxMg/p.jpeg?fv_content=true&size_mode=5)
 
-![alt text](https://www.dropbox.com/s/v11zt83d14ltddv/2021-02-16%2009.08.32.jpg?dl=0)
+![alt text](https://previews.dropbox.com/p/thumb/ABG8OuWcu-lTl6EFQN2ZvRz22ydm2t7ZJ_OppxSj4Dx0EGtc-UQ3mevj_Fu6aXPv3KCFA9cRNWmBRJUX6mdKC4ZM3CmtE5nKNc_jeQwSI67iIyZSeGU3Xh8CeVWWMe8Y9pl20lEfqB6O8s-pXU77uyf3Yaz3pywhkkQip7kVRYyuNKsz97TBXtcJWkuJdx8191rTDhfl88qql36pIOqq152eEnUmrhT2eT3FBH_yATjPsH9cG2pOhBr0kXZzRGqNjYC76eZONRhZqBCxomGRkSDH00YDpGjAGDEw6gLVQh2QX3-IPIr78VjUp-d0B2ZLL5Z-HYmJs_T1d7Fd6llkbdHZh97eX8UZfHYYsuQveM6gc8b2AgSc20ECDkYcU1z1Ih9-Tqsgwdj26evDPGnTAGtT3aPfCI7uDuGkRrtMw_XLTQ/p.jpeg?fv_content=true&size_mode=5)
 
-![alt text](https://www.dropbox.com/s/vmujbwple1ufjt4/2021-02-16%2009.07.40.jpg?dl=0)
+![alt text](https://previews.dropbox.com/p/thumb/ABGlyELu19Hj8VVSj7Ac-qgXl-Gb7qbGHh_g2tya-_n058RlCyf3zNSkRakFVpu2qpfLOEqpH4nis9oQSmC_DJv3ND7FmLKsz1pH_pULUC9wdJl75K9H0jslZgbAoYTNZEP81Af1AuOffshBntacr72tSjVA6g_mA94Yv9UT9c4qemBbVUTRVruNPMmV5K8JzbAjcH-r7CcX-5ATPU6bj9o0iJZyQgjdUXhhdD1NSqk6N5eYqVWk2xKncIlyXWrM_RWync0qs4XJBNTPg8gPTFblq-OmJxPEXPEkfkJQ-y5jSHSCs8OF6qau6D3iUi8WsEQDIEolAB4Pzxxun2EK-YgaOS_H_ooMNAqpCMAYJvzooTRmLJ2HaQe4yAxy2wUPo7R4CrPD1cg2xxhh1dwxK37njtu46Qej_idnkfjy3Y68mw/p.jpeg?fv_content=true&size_mode=5)
 
 
 ## Usage
