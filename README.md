@@ -1,4 +1,18 @@
 ## kubeleds
+Monitor your kubernetes clusters using NeoPixel LEDS!
+
+## Hardware
+### Raspberry PI (any model that supports GPIO)
+Currently using a Raspberry PI 4b 2GB.  Preparing a Raspberry PI Zero W
+
+NeoPixel LED Strips, 12mm Diffussed bulbs
+
+![alt text](https://www.dropbox.com/s/nmrmp8nqpghqjc6/2021-02-16%2009.07.11.jpg?dl=0)
+
+![alt text](https://www.dropbox.com/s/v11zt83d14ltddv/2021-02-16%2009.08.32.jpg?dl=0)
+
+![alt text](https://www.dropbox.com/s/vmujbwple1ufjt4/2021-02-16%2009.07.40.jpg?dl=0)
+
 
 ## Usage
 
@@ -22,17 +36,32 @@ $ source venv/bin/activate
 $ make install
 ```
 
-## Take your CLI for a spin
+## Take kubeleds for a spin
 
-This Cookiecutter comes with two generic CLI commands, namely, `init` and `show`.
+This will basic command line functionality
 
 ```bash
 $ kubeledscli init
 ```
 
+### This will retrieve node status and set the leds base off of status of each node, testing each status condition (ready, cpu, memory, disk)
 ```bash
-$ kubeledscli show
+$ kubeledscli get_cluster_nodes '[api fqdn]' \
+    '[your token]' 'True' 'get_cluster_nodes' \
+    'set_leds' 'get_cluster_nodes' 'Ready' \
+    'set_leds' 'get_cluster_nodes' 'MemoryPressure' \
+    'set_leds' 'get_cluster_nodes' 'DiskPressure' \
+    'set_leds' 'get_cluster_nodes' 'PIDPressure' \
+    'set_leds' 'get_cluster_nodes' 'Ready' \
 ```
+The above commands will retrieve cluster node status and set an led frame per status condition, 1 led per node.
+
+GREEN: Node Ready
+BLUE: CPU Good
+CYAN: Memory good
+Purple: Disk Good
+
+
 
 ### Test with Docker
 
