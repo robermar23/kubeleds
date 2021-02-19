@@ -5,9 +5,6 @@ from kubeleds import utils
 from kubernetes import client
 from kubeleds.constants import COLOR_OFF, COLOR_BAD, COLORS
 
-import board
-import adafruit_ws2801
-
 @click.command("set_leds", short_help="Set led colors")
 @click.pass_context
 @click.argument("data_key", required=True)
@@ -26,7 +23,7 @@ def set_leds(ctx, data_key, status_condition):
         data = ctx.obj[data_key]
 
     n_leds = len(utils.Leds)
-    console.print("Setting colors for " + str(n_leds))
+    console.print("Setting " + status_condition + " for " + str(n_leds))
 
     bad_leds = []
     idx = 0
@@ -34,10 +31,12 @@ def set_leds(ctx, data_key, status_condition):
     for item in data:
         if idx >= 0 and idx < n_leds:
             if item.get_status_conditions()[status_condition]:
-                utils.Leds[idx] = COLORS[status_condition]
+                color_to_use = COLORS[status_condition]
+                utils.Leds[idx] = color_to_use
             else:
                 utils.Leds[idx] = COLOR_BAD
                 bad_leds.append(idx)
+            console.print("Set led " + str(idx) + " to " + str(color_to_use))
         idx+= 1
 
     while idx < n_leds:
