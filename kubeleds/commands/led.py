@@ -10,7 +10,9 @@ import adafruit_ws2801
 @click.argument("data_key", required=True)
 @click.argument("status_condition", required=True)
 @click.argument("start_led", required=True)
-def set_leds(ctx, data_key, status_condition, start_led):
+@click.argument("num_leds", required=True)
+@click.argument("brightness", required=True)
+def set_leds(ctx, data_key, status_condition, start_led, num_leds, brightness):
     """ This command will let you set the color of each led
 
     Examples:
@@ -20,11 +22,17 @@ def set_leds(ctx, data_key, status_condition, start_led):
     """
     odata = board.MOSI
     oclock = board.SCK
-    numleds = 50
-    bright = 0.25
+
+    num_leds = int(num_leds)
+    
+    brightness = float(brightness)
+    if brightness <= 0:
+        brightness = 0.25
+    elif brightness > 1:
+        brightness = 1
 
     leds = adafruit_ws2801.WS2801(
-        oclock, odata, numleds, brightness=bright, auto_write=False
+        oclock, odata, num_leds, brightness=brightness, auto_write=False
     )
 
     data = {}
@@ -82,7 +90,7 @@ def set_leds(ctx, data_key, status_condition, start_led):
     #blink bad nodes 5 times
     if len(bad_leds) > 0:
         for bad_led in bad_leds:
-            fiveTimes = range(4)
+            fiveTimes = range(6)
             for blink in fiveTimes:
                 if blink % 2 == 0:
                     leds[bad_led] = COLOR_BAD
@@ -95,3 +103,18 @@ def set_leds(ctx, data_key, status_condition, start_led):
 
 def random_color():
     return random.randrange(0, 7) * 32
+
+@click.command("clear_leds", short_help="clear all leds")
+def clear_leds():
+    numleds = 50
+    odata = board.MOSI
+    oclock = board.SCK
+    numleds = 50
+    bright = 0.25
+    leds = adafruit_ws2801.WS2801(
+        oclock, odata, numleds, brightness=bright, auto_write=False
+    )
+    for i in range(numleds - 1):
+        leds[i] = COLOR_OFF
+    leds.show()
+
